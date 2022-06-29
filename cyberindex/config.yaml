@@ -20,10 +20,10 @@ node:
             insecure: true
             address: "http://localbostrom:9090"
 database:
-    host: cyberindex_postgres
+    host: cyberindex-postgres
     max_idle_connections: 1
     max_open_connections: 1
-    name: cyberindex
+    name: cyberindex_postgres
     password: "1bostromlocal1"
     port: 5432
     schema: public

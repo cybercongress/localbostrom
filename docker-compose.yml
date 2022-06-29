@@ -9,7 +9,7 @@ services:
       - ./bostrom_config:/root/.cyber/config
       - ./data:/root/.cyber/data
     networks:
-      cyber-net:
+      cyberindex-net:
         ipv4_address: 172.28.1.2
     ports:
       - "26657:26657"
@@ -22,7 +22,7 @@ services:
         container_name: cyberindex-postgres
         volumes:
             - ./cyberindex/postgres:/var/lib/postgresql/data
-            - ./database/schema/:/root/schema
+            - ./cyberindex/schema/:/docker-entrypoint-initdb.d/
         environment:
             - POSTGRES_DB=cyberindex_postgres
             - POSTGRES_USER=cyber
@@ -52,7 +52,7 @@ services:
   cyberindex:
         image: cyberd/cyberindex:local_0.1.0
         restart: always
-        container_name: cyberindex-local
+        container_name: cyberindex
         depends_on:
             - "postgres"
             - "cyber"
@@ -64,7 +64,7 @@ services:
       
 
 networks:
-  cyber-net:
+  cyberindex-net:
     driver: bridge
     ipam:
         driver: default
