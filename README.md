@@ -13,9 +13,9 @@ An instant, zero-config bostrom blockchain.
 
 Localbostrom is a complete bostrom testnet containerized with Docker and orchestrated with a simple `docker-compose` file. It simplifies the way smart-contract developers test their contracts in a sandbox before they deploy them on a testnet or mainnet.
 
-Localbostrom comes preconfigured with opinionated, sensible defaults for standard testing environments.
+Localbostrom comes preconfigured with opinionated, sensible defaults for standard testing environments. Also it comes with pre-configured [cyberidex](https://github.com/cybercongress/cyberindex) to alow fast and easy data manipulation and anlysis.
 
-localbostrom has the following advantages over a public testnet:
+Localbostrom has the following advantages over a public testnet:
 
 - Quick to reset for rapid iterations
 - Simple simulations of different scenarios
@@ -26,9 +26,9 @@ localbostrom has the following advantages over a public testnet:
 - [Docker](https://www.docker.com/)
 - [`docker-compose`](https://github.com/docker/compose)
 - Supported known architecture: x86_64
-- 16+ GB of RAM is recommended
+- 8+ GB of RAM is recommended
 
-## Install localbostrom
+## Get localbostrom
 
 1. Run the following commands::
 
@@ -37,30 +37,34 @@ $ git clone https://github.com/SaveTheAles/localbostrom
 $ cd localbostrom
 ```
 
-2. Make sure your Docker daemon is running in the background and [`docker-compose`](https://github.com/docker/compose) is installed.
+## Start, stop, and reset
 
-## Start, stop, and reset localbostrom
-
-- Start localbostrom:
+- Start localbostrom with cyberindex:
 
 ```sh
-$ docker-compose up
+$ docker-compose up --detach
 ```
 
 Your environment now contains:
 
-- [cyber](https://github.com/cybercongress/go-cyber) RPC node running on `tcp://localhost:26657`, `http://localhost:26657`
-- LCD running on http://localhost:1317
-- [FCD](http://www.github.com/terra-money/fcd) running on http://localhost:3060
+- [cyber](https://github.com/cybercongress/go-cyber) RPC node running on `http://localhost:26657`
+- GRPC endpoint at `http://localhost:9090`
+- LCD running on `http://localhost:1317` with swagger at `http://localhost:1317/swagger`
+- [GraphQL](https://hasura.io/docs/latest/graphql/core/index/) endpoint on `http://localhost:8090`
 
+- Start only localbostrom:
 
-Stop localbostrom:
+```sh
+$ docker-compose up -d cyber --detach
+```
+
+- Stop localbostrom:
 
 ```sh
 $ docker-compose stop
 ```
 
-Reset the state:
+- Reset the state:
 
 ```sh
 $ docker-compose rm
@@ -68,7 +72,7 @@ $ docker-compose rm
 
 ### cyber
 
-1. Ensure the same version of `cyber` and localbostrom are installed.
+1. Ensure the same version of `cyber` daemon and localbostrom are installed.
 
 2. Use `cyber` to talk to your localbostrom `cyber` node:
 
@@ -80,7 +84,7 @@ This command automatically works because `cyber` connects to `localhost:26657` b
 
 The following command is the explicit form:
 ```sh
-$ cyber status --node=tcp://localhost:26657
+$ cyber status --node=http://localhost:26657
 ```
 
 3. Run any of the `cyber` commands against your localbostrom network, as shown in the following example:
@@ -92,7 +96,6 @@ $ cyber query account bostrom1phaxpevm5wecex2jyaqty2a4v02qj7qm5n94ug
 4. If you want to hard restart the netowrk (drop state and start from the genesis) you can use `hard_restart.sh` script
 
 ```sh
-chmod +x ./hard_restart.sh
 ./hard_restart.sh
 ```
 
@@ -113,6 +116,7 @@ Out of the box, localbostrom comes preconfigured with opinionated settings such 
 
 - ports defined for RPC (26657), LCD (1317) and FCD (3060)
 - standard [accounts](#accounts)
+- index [config](./cyberindex/config.yaml)(postgress db params, hasura access params etc.)
 
 ### Modifying node configuration
 
@@ -124,10 +128,20 @@ localbostrom is often used alongside a script written with the Terra.js SDK or T
 
 To increase block time, edit the `[consensus]` parameters in the `config/config.toml` file, and specify your own values.
 
+### Modifying cyberindex configuration
+
+To modify cyberindex params - edit [config](./cyberindex/config.yaml), posgtress params could be altered in `docker-compose.yml`.Changing postgres params require contaider and `./cyberindex/postgres` folder termination and rebuild with:
+
+```sh
+docker-compose down postgres
+rm -rf cyberindex/postgres
+edit what you need in `cyberindex/config.yaml`
+docker-compose up -d postgres --detach
+```
 
 ### Modifying genesis
 
-You can change the `genesis.json` file by altering `config/genesis.json`. To load your changes, restart your localbostrom.
+TODO
 
 ## Accounts
 
@@ -146,3 +160,34 @@ localbostrom is pre-configured with one validator and 10 accounts with boot bala
 | test8     | `bostrom1f4tvsdukfwh6s9swrc24gkuz23tp8pd3jdyhpg`                                                           | `cream sport mango believe inhale text fish rely elegant below earth april wall rug ritual blossom cherry detail length blind digital proof identify ride`                 |
 | test9     | `bostrom1myv43sqgnj5sm4zl98ftl45af9cfzk7nu6p3gz`                                                           | `index light average senior silent limit usual local involve delay update rack cause inmate wall render magnet common feature laundry exact casual resource hundred`       |
 | test10    | `bostrom14gs9zqh8m49yy9kscjqu9h72exyf295azqa4qr`                                                           | `prefer forget visit mistake mixture feel eyebrow autumn shop pair address airport diesel street pass vague innocent poem method awful require hurry unhappy shoulder`     |
+
+## Whole setup architecture
+
+```sh
+.
+├── bostrom_config          `folder wich typically is .cyber/config, containd all node configs and params`
+│   ├── addrbook.json
+│   ├── app.toml
+│   ├── client.toml
+│   ├── config.toml
+│   ├── genesis.json
+│   ├── node_key.json
+│   └── priv_validator_key.json
+├── cyberindex               `folder containing everything relayted to cyberindex`
+│   ├── config.yaml          `cyberindex config`
+│   ├── postgres             `folder contains postgress db`
+│   └── schema               `folder with sql views for db, add yours here to be initiated during postgres startup`
+│       ├── 00-cosmos.sql
+│       ├── 01-auth.sql
+│       ├── 02-bank.sql
+│       ├── 03-modules.sql
+│       ├── 04-graph.sql
+│       ├── 05-grid.sql
+│       ├── 06-resources.sql
+│       └── 07-wasm.sql
+├── data                      `contain all chain data`
+│   └── priv_validator_state.json
+├── docker-compose.yml
+├── hard_restart.sh
+└── README.md
+```
