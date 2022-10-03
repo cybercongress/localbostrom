@@ -33,7 +33,7 @@ Localbostrom has the following advantages over a public testnet:
 1. Run the following commands::
 
 ```sh
-$ git clone https://github.com/SaveTheAles/localbostrom
+$ git clone https://github.com/cybercongress/localbostrom
 $ cd localbostrom
 ```
 
@@ -121,12 +121,6 @@ Out of the box, localbostrom comes preconfigured with opinionated settings such 
 ### Modifying node configuration
 
 You can modify the node configuration of your validator in the `config/config.toml` and `config/app.toml` files.
-
-#### Pro tip: Speed Up Block Time
-
-localbostrom is often used alongside a script written with Terra.js SDK or Terra Python SDK as a convenient way to do integration tests. You can greatly improve the experience by speeding up the block time.
-
-To increase block time, edit the `[consensus]` parameters in the `config/config.toml` file, and specify your own values.
 
 ### Modifying cyberindex configuration
 
