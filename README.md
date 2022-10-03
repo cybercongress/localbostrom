@@ -13,7 +13,7 @@ An instant, zero-config bostrom blockchain.
 
 Localbostrom is a complete bostrom testnet containerized with Docker and orchestrated with a simple `docker-compose` file. It simplifies the way smart-contract developers test their contracts in a sandbox before they deploy them on a testnet or mainnet.
 
-Localbostrom comes preconfigured with opinionated, sensible defaults for standard testing environments. Also it comes with pre-configured [cyberidex](https://github.com/cybercongress/cyberindex) to alow fast and easy data manipulation and anlysis.
+Localbostrom comes preconfigured with opinionated, sensible defaults for standard testing environments. It also comes with pre-configured [cyberindex](https://github.com/cybercongress/cyberindex) to allow fast and easy data manipulation and analysis.
 
 Localbostrom has the following advantages over a public testnet:
 
@@ -93,7 +93,7 @@ $ cyber status --node=http://localhost:26657
 $ cyber query account bostrom1phaxpevm5wecex2jyaqty2a4v02qj7qm5n94ug
 ```
 
-4. If you want to hard restart the netowrk (drop state and start from the genesis) you can use `hard_restart.sh` script
+4. If you want to hard restart the network (drop state and start from the genesis) you can use `hard_restart.sh` script
 
 ```sh
 ./hard_restart.sh
@@ -124,13 +124,13 @@ You can modify the node configuration of your validator in the `config/config.to
 
 #### Pro tip: Speed Up Block Time
 
-localbostrom is often used alongside a script written with the Terra.js SDK or Terra Python SDK as a convenient way to do integration tests. You can greatly improve the experience by speeding up the block time.
+localbostrom is often used alongside a script written with Terra.js SDK or Terra Python SDK as a convenient way to do integration tests. You can greatly improve the experience by speeding up the block time.
 
 To increase block time, edit the `[consensus]` parameters in the `config/config.toml` file, and specify your own values.
 
 ### Modifying cyberindex configuration
 
-To modify cyberindex params - edit [config](./cyberindex/config.yaml), posgtress params could be altered in `docker-compose.yml`.Changing postgres params require contaider and `./cyberindex/postgres` folder termination and rebuild with:
+To modify cyberindex params - edit [config](./cyberindex/config.yaml), posgtres params could be altered in `docker-compose.yml`. Changing postgres params require container and `./cyberindex/postgres` folder termination and rebuild with:
 
 ```sh
 docker-compose down postgres
