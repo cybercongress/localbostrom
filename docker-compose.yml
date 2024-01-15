@@ -1,13 +1,14 @@
-version: "3"
+version: "4"
 
 services:
   cyber:
-    image: cyberd/cyber:bostrom-localnet-1
+    image: cyberd/cyber:bostrom-localnet-wasm
     container_name: localbostrom
     #pull_policy: always
     volumes:
       - ./bostrom_config:/root/.cyber/config
       - ./data:/root/.cyber/data
+      - ./wasm:/root/.cyber/wasm
     networks:
       cyberindex-net:
         ipv4_address: 172.28.1.2
@@ -16,6 +17,7 @@ services:
       - "1317:1317"
       - "9090:9090"
       - "9091:9091"
+    command: cyber start --compute-gpu=false --wasm.query_gas_limit=10000000
   postgres:
         image: postgres:latest
         restart: always
