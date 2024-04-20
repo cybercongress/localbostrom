@@ -354,6 +354,13 @@
     "feegrant": {
       "allowances": []
     },
+    "feeibc": {
+      "identified_fees": [],
+      "fee_enabled_channels": [],
+      "registered_payees": [],
+      "registered_counterparty_payees": [],
+      "forward_relayers": []
+    },
     "genutil": {
       "gen_txs": [
         {
@@ -382,11 +389,11 @@
                 },
                 "value": {
                   "denom": "boot",
-                  "amount": "100000000000"
+                  "amount": "500000000000"
                 }
               }
             ],
-            "memo": "62cd922a9d9349e790247dadd1e32947450502fb@192.168.1.18:26656",
+            "memo": "62cd922a9d9349e790247dadd1e32947450502fb@192.168.1.4:26656",
             "timeout_height": "0",
             "extension_options": [],
             "non_critical_extension_options": []
@@ -414,7 +421,7 @@
             }
           },
           "signatures": [
-            "/DbvVbLSn3XZr5SKL72KGknxRjw5owRoB1iakjF1bdk/ppKsnYdfk+BwdltBt7VC0Qqa1v+bPHNs326g/G6VPA=="
+            "xLmo9+B2vhKrNcRf03vMJ+qOJCTax1PaWSx97YWoRrUMcA8mcLoTcNDBe6gAxVUlo7GBXJphMLueosbCQbKLfQ=="
           ]
         }
       ]
@@ -431,15 +438,15 @@
             "amount": "1000000000"
           }
         ],
-        "max_deposit_period": "604800s"
+        "max_deposit_period": "300s"
       },
       "voting_params": {
-        "voting_period": "604800s"
+        "voting_period": "300s"
       },
       "tally_params": {
-        "quorum": "0.250000000000000000",
-        "threshold": "0.500000000000000000",
-        "veto_threshold": "0.250000000000000000"
+        "quorum": "0.150000000000000000",
+        "threshold": "0.150000000000000000",
+        "veto_threshold": "0.150000000000000000"
       }
     },
     "graph": null,
@@ -591,14 +598,14 @@
       "params": {
         "code_upload_access": {
           "permission": "Everybody",
-          "address": ""
+          "address": "",
+          "addresses": []
         },
         "instantiate_default_permission": "Everybody"
       },
       "codes": [],
       "contracts": [],
-      "sequences": [],
-      "gen_msgs": []
+      "sequences": []
     }
   }
 }
