@@ -5,8 +5,7 @@
   "consensus_params": {
     "block": {
       "max_bytes": "4194304",
-      "max_gas": "25000000",
-      "time_iota_ms": "1000"
+      "max_gas": "25000000"
     },
     "evidence": {
       "max_age_num_blocks": "100000",
@@ -18,7 +17,9 @@
         "ed25519"
       ]
     },
-    "version": {}
+    "version": {
+      "app": "0"
+    }
   },
   "app_hash": "",
   "app_state": {
@@ -118,8 +119,8 @@
         "recovery_period": "16000",
         "adjust_price_period": "5",
         "base_price": "0.250000000000000000",
-        "max_block_bandwidth": "25000",
-        "base_load": "0.100000000000000000"
+        "base_load": "0.100000000000000000",
+        "max_block_bandwidth": "25000"
       }
     },
     "bank": {
@@ -228,93 +229,15 @@
           ]
         }
       ],
-      "supply": [
-        {
-          "amount": "1100000000000000",
-          "denom": "boot"
-        }
-      ],
-      "denom_metadata": [
-        {
-          "description": "The staking token of Bostrom",
-          "base": "boot",
-          "display": "boot",
-          "name": "Bostrom Boot",
-          "symbol": "BOOT",
-          "denom_units": [
-            {
-              "denom": "boot",
-              "exponent": 0,
-              "aliases": [
-                "BOOT"
-              ]
-            }
-          ]
-        },
-        {
-          "description": "The liquid staking token of Bostrom",
-          "base": "hydrogen",
-          "display": "hydrogen",
-          "name": "Bostrom Hydrogen",
-          "symbol": "HYDROGEN",
-          "denom_units": [
-            {
-              "denom": "hydrogen",
-              "exponent": 0,
-              "aliases": [
-                "HYDROGEN"
-              ]
-            }
-          ]
-        },
-        {
-          "description": "The power token of Bostrom",
-          "base": "milliampere",
-          "display": "ampere",
-          "name": "Bostrom Ampere",
-          "symbol": "AMPERE",
-          "denom_units": [
-            {
-              "denom": "milliampere",
-              "exponent": 0,
-              "aliases": []
-            },
-            {
-              "denom": "ampere",
-              "exponent": 3,
-              "aliases": [
-                "AMPERE"
-              ]
-            }
-          ]
-        },
-        {
-          "description": "The bandwidth token of Bostrom",
-          "base": "millivolt",
-          "display": "volt",
-          "name": "Bostrom Volt",
-          "symbol": "VOLT",
-          "denom_units": [
-            {
-              "denom": "millivolt",
-              "exponent": 0,
-              "aliases": []
-            },
-            {
-              "denom": "volt",
-              "exponent": 3,
-              "aliases": [
-                "VOLT"
-              ]
-            }
-          ]
-        }
-      ]
+      "supply": [],
+      "denom_metadata": [],
+      "send_enabled": []
     },
     "capability": {
       "index": "1",
       "owners": []
     },
+    "consensus": null,
     "crisis": {
       "constant_fee": {
         "denom": "boot",
@@ -376,8 +299,8 @@
                   "details": ""
                 },
                 "commission": {
-                  "rate": "0.100000000000000000",
-                  "max_rate": "0.200000000000000000",
+                  "rate": "0.070000000000000000",
+                  "max_rate": "1.000000000000000000",
                   "max_change_rate": "0.010000000000000000"
                 },
                 "min_self_delegation": "1",
@@ -393,7 +316,7 @@
                 }
               }
             ],
-            "memo": "62cd922a9d9349e790247dadd1e32947450502fb@192.168.1.4:26656",
+            "memo": "62cd922a9d9349e790247dadd1e32947450502fb@192.168.0.100:26656",
             "timeout_height": "0",
             "extension_options": [],
             "non_critical_extension_options": []
@@ -418,10 +341,11 @@
               "gas_limit": "200000",
               "payer": "",
               "granter": ""
-            }
+            },
+            "tip": null
           },
           "signatures": [
-            "xLmo9+B2vhKrNcRf03vMJ+qOJCTax1PaWSx97YWoRrUMcA8mcLoTcNDBe6gAxVUlo7GBXJphMLueosbCQbKLfQ=="
+            "mAw/qzUk0XS5XdJl9cKDIY4GDZwFqb56QD8nB07DF7RKXoKIX+804bWc15dTKT2qmHm7jbkaCm0hbo9R4qSSvA=="
           ]
         }
       ]
@@ -431,22 +355,25 @@
       "deposits": [],
       "votes": [],
       "proposals": [],
-      "deposit_params": {
+      "deposit_params": null,
+      "voting_params": null,
+      "tally_params": null,
+      "params": {
         "min_deposit": [
           {
             "denom": "boot",
-            "amount": "1000000000"
+            "amount": "10000000"
           }
         ],
-        "max_deposit_period": "300s"
-      },
-      "voting_params": {
-        "voting_period": "300s"
-      },
-      "tally_params": {
-        "quorum": "0.150000000000000000",
+        "max_deposit_period": "300s",
+        "voting_period": "300s",
+        "quorum": "0.15000000000000000",
         "threshold": "0.150000000000000000",
-        "veto_threshold": "0.150000000000000000"
+        "veto_threshold": "0.150000000000000000",
+        "min_initial_deposit_ratio": "0.000000000000000000",
+        "burn_vote_quorum": false,
+        "burn_proposal_deposit_prevote": false,
+        "burn_vote_veto": true
       }
     },
     "graph": null,
@@ -574,7 +501,8 @@
         "max_validators": 92,
         "max_entries": 10,
         "historical_entries": 10000,
-        "bond_denom": "boot"
+        "bond_denom": "boot",
+        "min_commission_rate": "0.000000000000000000"
       },
       "last_total_power": "0",
       "last_validator_powers": [],
@@ -588,9 +516,10 @@
       "port_id": "transfer",
       "denom_traces": [],
       "params": {
-        "send_enabled": false,
-        "receive_enabled": false
-      }
+        "send_enabled": true,
+        "receive_enabled": true
+      },
+      "total_escrowed": []
     },
     "upgrade": {},
     "vesting": {},
@@ -598,7 +527,6 @@
       "params": {
         "code_upload_access": {
           "permission": "Everybody",
-          "address": "",
           "addresses": []
         },
         "instantiate_default_permission": "Everybody"
