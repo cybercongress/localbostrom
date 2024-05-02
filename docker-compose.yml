@@ -52,7 +52,7 @@ services:
         ports:
             - 8090:8080
   cyberindex:
-        image: cyberd/cyberindex:local_0.1.0
+        image: cyberd/cyberindex:v2.0.0-rc1
         restart: always
         container_name: cyberindex
         depends_on:
@@ -63,7 +63,6 @@ services:
         networks:
             localbostrom-net:
                 ipv4_address: 172.28.1.5
-      
 
 networks:
   localbostrom-net:
