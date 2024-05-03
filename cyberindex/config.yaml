@@ -13,24 +13,24 @@ chain:
         - resources
         - wasm
 node:
-    type: "remote"
+    type: remote
     config:
         rpc:
             client_name: "cyberindex"
             max_connections: 10
-            address: "http://localbostrom:26657"
+            address: "http://localhost:26657"
         grpc:
+            address: "http://localhost:9090"
             insecure: true
-            address: "http://localbostrom:9090"
 parsing:
     workers: 1
-    start_height: 0
+    start_height: 1
     average_block_time: 5s
     listen_new_blocks: true
     parse_old_blocks: true
     parse_genesis: true
 database:
-    url: cyberindex-postgres://cyber:1bostromlocal1@cyberindex-postgres:5432/cyberindex_postgres?sslmode=disable&search_path=public
+    url: postgresql://cyber:1cyberindex1@localhost:5432/cyberindex?sslmode=disable&search_path=public
     max_open_connections: 1
     max_idle_connections: 1
     partition_size: 100000
