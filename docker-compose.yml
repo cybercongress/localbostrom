@@ -55,18 +55,6 @@ services:
         volumes:
             - ./cyberindex:/root/.cyberindex
             - .env:/.env
-        environment:
-            - CHAIN_PREFIX=${CHAIN_PREFIX}
-            - POSTGRES_DB_HOST=${POSTGRES_DB_HOST}
-            - POSTGRES_DB_PORT=${POSTGRES_DB_PORT}
-            - POSTGRES_DB_NAME=${POSTGRES_DB_NAME}
-            - POSTGRES_DB_USER=${POSTGRES_DB_USER}
-            - POSTGRES_DB_PASSWORD=${POSTGRES_DB_PASSWORD}
-            - POSTGRES_SSL=${POSTGRES_SSL}
-            - INDEX_WORKERS=#{INDEX_WORKERS}
-            - RPC_URL=${RPC_URL}
-            - GRPC_URL=${GRPC_URL}
-            - START_HEIGHT=${START_HEIGHT}
         networks:
             - localbostrom-net
 
